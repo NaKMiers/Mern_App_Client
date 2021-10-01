@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import actions from './redux/actions'
+import PropTypes from 'prop-types'
+import HomePage from './pages/HomePage'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App({ actionsCreator }) {
+   const { getPostRequest } = actionsCreator
+   getPostRequest()
+
+   return <HomePage></HomePage>
 }
 
-export default App;
+App.propTypes = {
+   actionsCreator: PropTypes.object
+}
+
+const mapState = state => ({})
+const mapDispatch = dispatch => ({
+   actionsCreator: bindActionCreators(actions, dispatch)
+})
+
+export default connect(mapState, mapDispatch)(App)
