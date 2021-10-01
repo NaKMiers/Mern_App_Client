@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import App from './App'
 import './index.css'
 import configureStore from './redux/configureStore'
-
 const store = configureStore()
 
 ReactDOM.render(
