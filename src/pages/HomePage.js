@@ -1,27 +1,29 @@
-import React from 'react'
-import { Container, Fab, withStyles } from '@material-ui/core'
+import { Container, Fab } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import CreatePostModal from '../components/CreatePostModal'
 import Header from '../components/Header'
 import PostList from '../components/PostList'
-import styles from './styles'
-import { connect } from 'react-redux'
-import { bindActionCreators, compose } from 'redux'
 import actions from '../redux/actions'
-import PropTypes from 'prop-types'
-import CreatePostModal from '../components/CreatePostModal'
+import useStyle from './styles'
 
-function HomePage({ classes, actionCreator }) {
+function HomePage({ actionCreator }) {
    const openCreatePostModal = () => {
       const { showModal } = actionCreator
       showModal()
    }
+
+   const classes = useStyle()
 
    return (
       <Container maxWidth='lg'>
          <Header />
          <PostList />
          <CreatePostModal />
-         <Fab size='medium' className={classes.addButton} onClick={openCreatePostModal}>
+         <Fab size='large' className={classes.addButton} onClick={openCreatePostModal}>
             <AddIcon />
          </Fab>
       </Container>
@@ -35,6 +37,4 @@ HomePage.propTypes = {
 
 const mapDispatch = dispatch => ({ actionCreator: bindActionCreators(actions, dispatch) })
 
-const withConnect = connect(null, mapDispatch)
-
-export default compose(withConnect, withStyles(styles))(HomePage)
+export default connect(null, mapDispatch)(HomePage)

@@ -3,7 +3,7 @@ import api from '../../api'
 import actions from '../actions'
 import actionTypes from '../constants/actionTypes'
 
-function* fetchPostsSaga(action) {
+function* fetchPostsSaga() {
    try {
       const posts = yield call(api.fetchPosts)
       yield put(actions.getPostsSuccess(posts.data))
